@@ -21,7 +21,7 @@ function auth (req, res, next) {
     var auth = new Buffer(authHeader.split(' ')[1], 'base64').toString().split(':');
     var user = auth[0];
     var pass = auth[1];
-    if (user == 'admin' && pass == 'admin') {
+    if (user == 'admin' && pass == 'password') {
         next(); // authorized
     } else {
         var err = new Error('You are not authenticated!');
