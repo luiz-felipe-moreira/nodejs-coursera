@@ -56,3 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# ignorando as sessões de usuário do basic-auth/server-3.js, que são salvas em arquivo na subpasta sessions
+basic-auth/sessions
