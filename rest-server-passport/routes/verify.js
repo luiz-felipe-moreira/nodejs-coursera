@@ -34,3 +34,19 @@ exports.verifyOrdinaryUser = function (req, res, next) {
         return next(err);
     }
 };
+
+exports.verifyAdmin = function (req, res, next) {
+    // check header or url parameters or post parameters for token
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+    if (req.decoded._doc.admin) {
+        next();
+    }
+    else {
+        // if there is no token
+        // return an error
+        var err = new Error('Not an admin user!');
+        err.status = 403;
+        return next(err);
+    }
+};
