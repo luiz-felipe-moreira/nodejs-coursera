@@ -9,6 +9,9 @@ exports.getToken = function (user) {
 };
 
 exports.verifyOrdinaryUser = function (req, res, next) {
+
+    console.log('Verificando se o usuário forneceu o token...');
+
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -36,6 +39,9 @@ exports.verifyOrdinaryUser = function (req, res, next) {
 };
 
 exports.verifyAdmin = function (req, res, next) {
+    
+    console.log('Verificando se o usuário é administrador...');
+
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
