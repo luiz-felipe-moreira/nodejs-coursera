@@ -1,6 +1,7 @@
 module.exports = function(app) {
 var MongoDB = app.dataSources.MongoDB;
 
+/*
 MongoDB.automigrate('Customer', function(err) {
    if (err) throw (err);
    var Customer = app.models.Customer;
@@ -28,5 +29,6 @@ MongoDB.automigrate('Customer', function(err) {
     });
   });
 });
+*/
 
 };

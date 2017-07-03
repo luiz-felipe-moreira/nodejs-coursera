@@ -32,7 +32,7 @@
     }
   },
   "Role": {
-    "dataSource": "MongoDBdb",
+    "dataSource": "MongoDB",
     "public": false
   },
   "dishes": {
