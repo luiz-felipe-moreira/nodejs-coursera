@@ -9,27 +9,32 @@ var favoritesRouter = express.Router();
 favoritesRouter.use(bodyParser.json());
 
 favoritesRouter.route('/')
-.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+  .get(Verify.verifyOrdinaryUser, function(req, res, next) {
     Favorites.find({})
-        .populate('postedBy')
-        .populate('dishes')
-        .exec(function (err, favorites) {
-          if (err) throw err;
-          res.json(favorites);
-    });
-})
+      .populate('postedBy')
+      .populate('dishes')
+      .exec(function(err, favorites) {
+        if (err) throw err;
+        res.json(favorites);
+      });
+  })
 
-.post(Verify.verifyOrdinaryUser, function (req, res, next) {
-    Favorites.findOne({postedBy: req.decoded._doc._id})
-      .exec(function (err,favorites) {
+  .post(Verify.verifyOrdinaryUser, function(req, res, next) {
+    Favorites.findOne({
+        postedBy: req.decoded._doc._id
+      })
+      .exec(function(err, favorites) {
         if (err) throw err;
 
         if (favorites === null) {
-          var favoritos = {postedBy: '', dishes: []};
+          var favoritos = {
+            postedBy: '',
+            dishes: []
+          };
           favoritos.postedBy = req.decoded._doc._id;
           favoritos.dishes.push(req.body._id)
 
-          Favorites.create(favoritos, function (err, favorites) {
+          Favorites.create(favoritos, function(err, favorites) {
             if (err) throw err;
             console.log('Favorites created!');
             res.writeHead(200, {
@@ -44,14 +49,14 @@ favoritesRouter.route('/')
           //TODO incluir o valor no array apenas se ainda nao estiver no array
           favorites.dishes.push(req.body._id);
 
-          favorites.save(function (err, favorites) {
-              if (err) throw err;
-              console.log('Updated Comments!');
-              res.json(favorites);
+          favorites.save(function(err, favorites) {
+            if (err) throw err;
+            console.log('Updated Comments!');
+            res.json(favorites);
           });
         }
       })
-});
+  });
 /*
 .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
     Dishes.remove({}, function (err, resp) {
