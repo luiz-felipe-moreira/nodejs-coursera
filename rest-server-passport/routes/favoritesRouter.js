@@ -13,9 +13,9 @@ favoritesRouter.route('/')
     Favorites.find({})
         .populate('postedBy')
         .populate('dishes')
-        .exec(function (err, dish) {
+        .exec(function (err, favorites) {
           if (err) throw err;
-          res.json(dish);
+          res.json(favorites);
     });
 })
 
@@ -40,7 +40,7 @@ favoritesRouter.route('/')
           });
 
         } else {
-          
+
           //TODO incluir o valor no array apenas se ainda nao estiver no array
           favorites.dishes.push(req.body._id);
 
