@@ -10,7 +10,9 @@ favoritesRouter.use(bodyParser.json());
 
 favoritesRouter.route('/')
   .get(Verify.verifyOrdinaryUser, function(req, res, next) {
-    Favorites.find({})
+    Favorites.find({
+        postedBy: req.decoded._doc._id
+      })
       .populate('postedBy')
       .populate('dishes')
       .exec(function(err, favorites) {
