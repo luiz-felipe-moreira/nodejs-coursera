@@ -58,15 +58,17 @@ favoritesRouter.route('/')
           });
         }
       })
-  });
-/*
-.delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-    Dishes.remove({}, function (err, resp) {
+  })
+.delete(Verify.verifyOrdinaryUser, function (req, res, next) {
+    Favorites.remove({
+        postedBy: req.decoded._doc._id
+      }, function (err, resp) {
         if (err) throw err;
         res.json(resp);
     });
 });
 
+/*
 dishRouter.route('/:dishId')
 .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Dishes.findById(req.params.dishId)
