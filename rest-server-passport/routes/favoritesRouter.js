@@ -78,9 +78,11 @@ favoritesRouter.route('/:dishId')
     })
     .exec(function(err, favorites) {
       if (err) throw err;
-      console.log('Favoritos antes da deleção: ' + favorites);
-      favorites.dishes.id(req.params.dishId).remove();
-      console.log('Favoritos após a deleção: ' + favorites);
+      for (var i = (favorites.dishes.length - 1); i >= 0; i--) {
+        if (favorites.dishes[i] == req.params.dishId) {
+          favorites.dishes.splice(i, 1);
+        }
+      }
       favorites.save(function(err, resp) {
         if (err) throw err;
         res.json(resp);
