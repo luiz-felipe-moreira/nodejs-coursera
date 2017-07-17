@@ -11,7 +11,7 @@ favoritesRouter.use(bodyParser.json());
 favoritesRouter.route('/')
   .get(Verify.verifyOrdinaryUser, function (req, res, next) {
     Favorites.findOne({
-      postedBy: req.decoded._doc._id
+      postedBy: req.decoded._id
     })
       .populate('postedBy')
       .populate('dishes')
@@ -23,7 +23,7 @@ favoritesRouter.route('/')
 
   .post(Verify.verifyOrdinaryUser, function (req, res, next) {
     Favorites.findOne({
-      postedBy: req.decoded._doc._id
+      postedBy: req.decoded._id
     })
       .exec(function (err, favorites) {
         if (err) throw err;
@@ -33,7 +33,7 @@ favoritesRouter.route('/')
             postedBy: '',
             dishes: []
           };
-          favoritos.postedBy = req.decoded._doc._id;
+          favoritos.postedBy = req.decoded._id;
           favoritos.dishes.push(req.body._id)
 
           Favorites.create(favoritos, function (err, favorites) {
@@ -64,7 +64,7 @@ favoritesRouter.route('/')
   })
   .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
     Favorites.remove({
-      postedBy: req.decoded._doc._id
+      postedBy: req.decoded._id
     }, function (err, resp) {
       if (err) throw err;
       res.json(resp);
@@ -75,7 +75,7 @@ favoritesRouter.route('/:dishId')
   .delete(Verify.verifyOrdinaryUser, function (req, res, next) {
 
     Favorites.findOne({
-      postedBy: req.decoded._doc._id
+      postedBy: req.decoded._id
     })
       .exec(function (err, favorites) {
         if (err) throw err;
